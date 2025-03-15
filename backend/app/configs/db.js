@@ -10,7 +10,7 @@ const sequelizeInstance = new Sequelize(process.env.DB, process.env.USER, proces
     dialect: process.env.DIALECT,
     port: process.env.MY_SQL_PORT,
     dialectOptions: {
-        connectTimedout: 10000,
+        connectTimeout: 10000,
     },
     operatorAliases: "false",
     pool:{

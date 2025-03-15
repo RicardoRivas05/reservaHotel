@@ -1,6 +1,6 @@
 'use strict'
 
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     const attributes = {
@@ -45,7 +45,7 @@ module.exports = (sequelize) => {
 
     const options = {
         defaultScope: {
-            attributes: { exclude: ['createdAt', 'updatedAt'] }
+            attributes: { excludes: ['createdAt', 'updatedAt'] }
         },
         scopes: {},
         tableName: 'Habitacion',

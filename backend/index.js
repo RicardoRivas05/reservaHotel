@@ -1,17 +1,17 @@
 'use strict'
 
 require('dotenv').config(); 
-const db = require('./app/config/db');
+const db = require('./app/configs/db');
 const App = require('./app/app');
 
 const PORT = process.env.PORT || process.env.APP_PORT;
 
-db.SequelizeInstance.sync()
+db.sequelizeInstance.sync()
     .then(() => {
-            console.info('DB Synced')
+            console.info(`DB Synced`)
             App.listen(parseInt(PORT), function (error) {
                 if (error) return console.log(error);
-                console.info('el servidor se esta ejecutando en el puerto ${PORT}')
+                console.info(`el servidor se esta ejecutando en el puerto ${PORT}`)
          })
     })
 .catch(error => {
