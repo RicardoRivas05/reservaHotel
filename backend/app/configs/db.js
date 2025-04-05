@@ -31,5 +31,8 @@ db.habitacion = require('../models/habitacionModel')(sequelizeInstance, Sequeliz
 db.estadoreserva = require('../models/estadoReservaModel')(sequelizeInstance, Sequelize);
 db.estadohabitacion = require('../models/estadoHabitacionModel')(sequelizeInstance, Sequelize);
 db.tipohabitacion = require('../models/tipoHabitacionModel')(sequelizeInstance, Sequelize);
+db.detallereserva = require('../models/detalleReservaModel')(sequelizeInstance, Sequelize);
+db.reserva = require('../models/reservaModel')(sequelizeInstance, Sequelize);
+
 
 module.exports = db;

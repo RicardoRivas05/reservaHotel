@@ -35,11 +35,19 @@ module.exports = (sequelize) => {
         },
         tipoHabitacionId: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: 'tipohabitacion',
+                key: 'idTipoHabitacion'
+            }
         },
         estadoHabitacionId: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: 'estadohabitacion',
+                key: 'idEstadoHabitacion'
+            }
         }
     };
 
@@ -48,7 +56,7 @@ module.exports = (sequelize) => {
             attributes: { exclude: ['createdAt', 'updatedAt'] }
         },
         scopes: {},
-        tableName: 'Habitacion',
+        tableName: 'habitacion',
         timestamps: false
     };
 

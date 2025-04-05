@@ -19,15 +19,15 @@ module.exports = (sequelize) => {
         },
         direccion: {
             type: DataTypes.STRING(250),
-            allowNull: true
+            allowNull: false
         },
         telefono: {
             type: DataTypes.STRING(20),
-            allowNull: true
+            allowNull: false
         },
         correoElectronico: {
             type: DataTypes.STRING(250),
-            allowNull: true,
+            allowNull: false,
             validate: {
                 isEmail: true
             }
@@ -39,7 +39,7 @@ module.exports = (sequelize) => {
             attributes: { exclude: ['createdAt', 'updatedAt'] }
         },
         scopes: {},
-        tableName: 'Huesped',
+        tableName: 'huesped',
         timestamps: false
     };
 
