@@ -8,6 +8,7 @@ const tipoHabitacionRoutes = require('./app/routes/tipoHabitacionRotes');
 const estadoHabitacionRoutes = require('./app/routes/estadoHabitacionRoutes');
 const detalleReservaRoutes = require('./app/routes/detallereservaRoutes');
 const reservaRoutes = require('./app/routes/reservaRoutes');
+const huespedRoutes= require('./app/routes/huespedRoutes');
 
 
 const app = express();
@@ -19,6 +20,8 @@ app.use('/tipoHabitacion', tipoHabitacionRoutes);
 app.use('/estadoHabitacion', estadoHabitacionRoutes);
 app.use('/detalleReserva', detalleReservaRoutes);
 app.use('/reserva', reservaRoutes);
+app.use('/huesped', huespedRoutes);
+
 
 // Ruta de prueba para verificar que todo funciona
 app.get('/', (req, res) => {
