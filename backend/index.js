@@ -4,6 +4,8 @@ require('dotenv').config();
 const db = require('./app/configs/db');
 const express = require('express');
 const habitacionRoutes = require('./app/routes/habitacionRoutes');
+const tipoHabitacionRoutes = require('./app/routes/tipoHabitacionRotes');
+const estadoHabitacionRoutes = require('./app/routes/estadoHabitacionRoutes');
 
 
 const app = express();
@@ -11,6 +13,8 @@ app.use(express.json());
 
 const PORT = process.env.PORT || process.env.APP_PORT;
 app.use('/habitaciones', habitacionRoutes);
+app.use('/tipoHabitacion', tipoHabitacionRoutes);
+app.use('/estadoHabitacion', estadoHabitacionRoutes);
 
 // Ruta de prueba para verificar que todo funciona
 app.get('/', (req, res) => {

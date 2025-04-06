@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
             allowNull: false,
             references: {
                 model: 'habitacion',
-                key: 'habitacionId'
+                key: 'idHabitacion'
             }
         },
         subTotal: {
