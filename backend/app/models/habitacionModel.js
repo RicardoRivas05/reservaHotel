@@ -4,7 +4,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
     const attributes = {
-        habitacionId: {
+        idHabitacion: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
@@ -33,7 +33,7 @@ module.exports = (sequelize) => {
             type: DataTypes.BLOB("medium"),
             allowNull: true
         },
-        tipoHabitacionId: {
+        idTipoHabitacion: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -41,7 +41,7 @@ module.exports = (sequelize) => {
                 key: 'idTipoHabitacion'
             }
         },
-        estadoHabitacionId: {
+        idEstadoHabitacion: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
