@@ -6,6 +6,8 @@ const express = require('express');
 const habitacionRoutes = require('./app/routes/habitacionRoutes');
 const tipoHabitacionRoutes = require('./app/routes/tipoHabitacionRotes');
 const estadoHabitacionRoutes = require('./app/routes/estadoHabitacionRoutes');
+const detalleReservaRoutes = require('./app/routes/detallereservaRoutes');
+const reservaRoutes = require('./app/routes/reservaRoutes');
 
 
 const app = express();
@@ -15,6 +17,8 @@ const PORT = process.env.PORT || process.env.APP_PORT;
 app.use('/habitaciones', habitacionRoutes);
 app.use('/tipoHabitacion', tipoHabitacionRoutes);
 app.use('/estadoHabitacion', estadoHabitacionRoutes);
+app.use('/detalleReserva', detalleReservaRoutes);
+app.use('/reserva', reservaRoutes);
 
 // Ruta de prueba para verificar que todo funciona
 app.get('/', (req, res) => {
