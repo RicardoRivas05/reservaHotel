@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva de Hotel</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header>
+            <h1>Reserva de Hotel</h1>
+            <button id="logout">Cerrar Sesión</button>
+        </header>
+        <main>
+            <section class="booking-form">
+                <h2>Hacer una Reserva</h2>
+                <label>Fecha de Entrada:</label>
+                <input type="date">
+                <label>Fecha de Salida:</label>
+                <input type="date">
+                <label>Habitaciones:</label>
+                <input type="number" min="1" max="5" value="1">
+                <button>Reservar</button>
+            </section>
+            <section class="recent-bookings">
+                <h2>Reservas Recientes</h2>
+                <ul>
+                    <li>Habitación Doble - 12/04/2025 al 15/04/2025</li>
+                    <li>Suite - 20/04/2025 al 25/04/2025</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
