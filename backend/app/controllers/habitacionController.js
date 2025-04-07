@@ -1,7 +1,6 @@
 const db = require("../configs/db");
 const Habitacion = db.habitacion;
 
-
 // Crear una nueva habitación
 exports.create = async (req, res) => {
   try {

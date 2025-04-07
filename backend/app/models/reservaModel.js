@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
             allowNull: false,
             references: {
                 model: 'huesped',
-                key: 'huespedId'
+                key: 'idHuesped'
             }
         },
         idEstadoReserva: {
@@ -41,7 +41,7 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING(45),
             allowNull: true,
             references: {
-                model: 'usuario',
+                model: 'user',
                 key: 'userId'
             }
         }

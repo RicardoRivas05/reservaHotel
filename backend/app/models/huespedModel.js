@@ -4,7 +4,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
     const attributes = {
-        huespedId: {
+        idHuesped: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true

@@ -14,10 +14,10 @@ module.exports = (sequelize) => {
     };
     const options = {
         defaultScope: {
-            attributes: { exclude: ['createdAt', 'updatedAt'] }
+            attributes: { excludes: ['createdAt', 'updatedAt'] }
         },
-        tableName: 'usuario',
-        timestamps: 'false'
+        tableName: 'user',
+        timestamps: false
     };
     return sequelize.define('users', attributes, options);
 };
