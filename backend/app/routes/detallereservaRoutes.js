@@ -6,5 +6,6 @@ router.post('/', detalleReservaController.create);
 router.get('/', detalleReservaController.findAll);
 router.get('/:id', detalleReservaController.findOne);
 router.put('/:id', detalleReservaController.update);
+router.delete('/:id', detalleReservaController.delete);
 
 module.exports = router;
