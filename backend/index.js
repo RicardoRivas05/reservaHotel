@@ -9,6 +9,7 @@ const estadoHabitacionRoutes = require('./app/routes/estadoHabitacionRoutes');
 const detalleReservaRoutes = require('./app/routes/detallereservaRoutes');
 const reservaRoutes = require('./app/routes/reservaRoutes');
 const huespedRoutes= require('./app/routes/huespedRoutes');
+const estadoreservaRoutes= require('./app/routes/estadoreservaRoutes');
 
 
 const app = express();
@@ -21,6 +22,7 @@ app.use('/estadoHabitacion', estadoHabitacionRoutes);
 app.use('/detalleReserva', detalleReservaRoutes);
 app.use('/reserva', reservaRoutes);
 app.use('/huesped', huespedRoutes);
+app.use('/estadoreserva', estadoreservaRoutes);
 
 
 // Ruta de prueba para verificar que todo funciona
