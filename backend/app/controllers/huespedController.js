@@ -40,7 +40,7 @@ exports.findOne = async (req, res) => {
 exports.update = async (req, res) => {
   const id = req.params.id;
   try {
-    const [updated] = await Huesped.update(req.body, { where: { huespedId: id } });
+    const [updated] = await Huesped.update(req.body, { where: { idHuesped: id } });
     if (updated) {
       const updatedHuesped = await Huesped.findByPk(id);
       res.status(200).json(updatedHuesped);
@@ -56,7 +56,7 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
   const id = req.params.id;
   try {
-    const deleted = await Huesped.destroy({ where: { huespedId: id } });
+    const deleted = await Huesped.destroy({ where: { idHuesped: id } });
     if (deleted) {
       res.status(200).json({ message: "Huésped eliminado correctamente" });
     } else {

@@ -40,7 +40,7 @@ exports.findOne = async (req, res) => {
 exports.update = async (req, res) => {
   const id = req.params.id;
   try {
-    const [updated] = await Habitacion.update(req.body, { where: { habitacionId: id } });
+    const [updated] = await Habitacion.update(req.body, { where: { idHabitacion: id } });
     if (updated) {
       const updatedHabitacion = await Habitacion.findByPk(id);
       res.status(200).json(updatedHabitacion);
@@ -56,7 +56,7 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
   const id = req.params.id;
   try {
-    const deleted = await Habitacion.destroy({ where: { habitacionId: id } });
+    const deleted = await Habitacion.destroy({ where: { idHabitacion: id } });
     if (deleted) {
       res.status(200).json({ message: "Habitación eliminada correctamente" });
     } else {
