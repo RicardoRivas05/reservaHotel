@@ -1,11 +1,13 @@
+'use strict'
+
 const express = require('express');
 const router = express.Router();
-const huespedcontroller = require('../controllers/huesped.controller.js');
+const huespedController = require('../controllers/huespedController');
 
-router.post('/', huespedcontroller.create);
-router.get('/', huespedcontroller.findAll);
-router.get('/:id', huespedcontroller.findOne);
-router.put('/:id', huespedcontroller.update);
-router.delete('/:id', huespedcontroller.delete);
+router.post('/', huespedController.create);
+router.get('/', huespedController.findAll);
+router.get('/:id', huespedController.findOne);
+router.put('/:id', huespedController.update);
+router.delete('/:id', huespedController.delete);
 
 module.exports = router;

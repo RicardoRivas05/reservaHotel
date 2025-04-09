@@ -1,6 +1,8 @@
+'use strict'
+
 const express = require('express');
 const router = express.Router();
-const detalleReservaController = require('../controllers/detallereservaController.js');
+const detalleReservaController = require('../controllers/detalleReservaController');
 
 router.post('/', detalleReservaController.create);
 router.get('/', detalleReservaController.findAll);

@@ -41,7 +41,7 @@ exports.findOne = async (req, res) => {
 exports.update = async (req, res) => {
   const id = req.params.id;
   try {
-    const [updated] = await Reserva.update(req.body, { where: { reservaId: id } });
+    const [updated] = await Reserva.update(req.body, { where: { idReserva: id } });
     if (updated) {
       const updatedReserva = await Reserva.findByPk(id);
       res.status(200).json(updatedReserva);
@@ -57,7 +57,7 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
   const id = req.params.id;
   try {
-    const deleted = await Reserva.destroy({ where: { reservaId: id } });
+    const deleted = await Reserva.destroy({ where: { idReserva: id } });
     if (deleted) {
       res.status(204).send();
     } else {

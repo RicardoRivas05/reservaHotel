@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Plus, Pencil, Trash2 } from 'lucide-react';
+import { getHuespedes, createHuesped, updateHuesped, deleteHuesped } from '../services/huespedService';
+import { ModalHuesped } from './ModalHuesped';
+
 
 interface Huesped {
-  id: number;
+  idHuesped: number;
   nombre: string;
   apellido: string;
   direccion: string;
@@ -13,27 +16,70 @@ interface Huesped {
 
 function Huesped() {
   const navigate = useNavigate();
-  const [huesped, setHuesped] = useState<Huesped[]>([
-    {
-      id: 1,
-      nombre: "jose",
-      apellido: "Maldonado",
-      direccion: "SPS",
-      telefono: "9999-9999",
-      correoElectronico: "jose@gmail.com"
+  const [huespedes, setHuespedes] = useState<Huesped[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [huespedSeleccionado, setHuespedSeleccionado] = useState<Huesped | null>(null);
+  const [modoEdicion, setModoEdicion] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() =>{
+    fetchHuespedes();
+  }, []);
+
+  const fetchHuespedes = async () => {
+    try {
+      const response = await getHuespedes();
+      setHuespedes(response.data);
+    } catch (error) {
+      console.error('Error al cargar los huéspedes', error);
     }
-  ]);
+  }
+
+  const handleGuardarHuesped = async (huesped: Huesped) => {
+    try {
+      setLoading(true);
+      
+      // Validacion para ver si existe el id, si existe se actualiza, si no se crea uno nuevo
+      if (huesped.idHuesped) {
+        await updateHuesped(huesped.idHuesped, huesped);
+      } else {
+        await createHuesped(huesped);
+      }
+      
+      // Se llama a la funcion para obtener los huespedes nuevamente y actualizar la tabla
+      await fetchHuespedes();
+      
+      // Cerrar el modal
+      setModalVisible(false);
+      
+    } catch (err) {
+      setError("Error al guardar el huésped");
+      console.error("Error guardando huésped:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleCreate = () => {
-    // Implementar lógica de creación
+    setHuespedSeleccionado(null);  // Para crear un nuevo huésped, no se selecciona ninguno
+    setModoEdicion(false);
+    setModalVisible(true);
   };
-
-  const handleEdit = (id: number) => {
-    // Implementar lógica de edición
+  
+  const handleEdit = (huesped: Huesped) => {
+    setHuespedSeleccionado(huesped); // Se le pasa el huesped seleccionado al modal
+    setModoEdicion(true); // Para indicar que estamos en modo edición
+    setModalVisible(true);
   };
+  
 
-  const handleDelete = (id: number) => {
-    // Implementar lógica de eliminación
+  const handleDelete = async(id: number) => {
+    try {
+      await deleteHuesped(id); // Llamada a la API para eliminar el huésped y se le pasa el id del registro
+      fetchHuespedes();
+    } catch (error) {
+      console.error('Error al eliminar huésped', error);
+    }
   };
 
   return (
@@ -86,10 +132,10 @@ function Huesped() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {huesped.map((guest) => (
-                <tr key={guest.id}>
+              {huespedes.map((guest) => (
+                <tr key={guest.idHuesped}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {guest.id}
+                    {guest.idHuesped}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {guest.nombre}
@@ -108,13 +154,13 @@ function Huesped() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button
-                      onClick={() => handleEdit(guest.id)}
+                      onClick={() => handleEdit(guest)}
                       className="text-indigo-600 hover:text-indigo-900 mr-4"
                     >
                       <Pencil className="h-5 w-5" />
                     </button>
                     <button
-                      onClick={() => handleDelete(guest.id)}
+                      onClick={() => handleDelete(guest.idHuesped)}
                       className="text-red-600 hover:text-red-900"
                     >
                       <Trash2 className="h-5 w-5" />
@@ -124,6 +170,17 @@ function Huesped() {
               ))}
             </tbody>
           </table>
+          {/* Mandamos a llamar al modal 
+          y se le pasa la funcion para poder guardar ya sea edicion o guardar por primera vez */}
+          {modalVisible && (
+          <ModalHuesped
+            visible={modalVisible}
+            onClose={() => setModalVisible(false)}
+            huesped={huespedSeleccionado}
+            onGuardar={handleGuardarHuesped}
+          />
+        )}
+
         </div>
       </div>
     </div>
@@ -131,3 +188,7 @@ function Huesped() {
 }
 
 export default Huesped;
+
+function setError(arg0: string) {
+  throw new Error('Function not implemented.');
+}
