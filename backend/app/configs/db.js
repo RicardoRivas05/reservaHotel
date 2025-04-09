@@ -24,4 +24,13 @@ const sequelizeInstance = new Sequelize(process.env.DB, process.env.USER, proces
 db.Sequelize = Sequelize;
 db.sequelizeInstance = sequelizeInstance;
 
+db.users = require('../models/userModel')(sequelizeInstance, Sequelize);
+db.huesped = require('../models/huespedModel')(sequelizeInstance, Sequelize);
+db.habitacion = require('../models/habitacionModel')(sequelizeInstance, Sequelize);
+db.estadoreserva = require('../models/estadoReservaModel')(sequelizeInstance, Sequelize);
+db.estadohabitacion = require('../models/estadoHabitacionModel')(sequelizeInstance, Sequelize);
+db.tipohabitacion = require('../models/tipoHabitacionModel')(sequelizeInstance, Sequelize);
+db.detallereserva = require('../models/detalleReservaModel')(sequelizeInstance, Sequelize);
+db.reserva = require('../models/reservaModel')(sequelizeInstance, Sequelize);
+
 module.exports = db;

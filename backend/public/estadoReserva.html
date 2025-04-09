@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Estados de Reserva</title>
+  <style>
+    body { font-family: sans-serif; margin: 2rem; background: #f4f4f4; }
+    h1 { color: #333; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+    th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
+    th { background: #e9e9e9; }
+    td > button { margin-right: 0.5rem; }
+    form { margin-top: 1rem; }
+    input[type="text"] { padding: 0.3rem; width: 200px; }
+    button { padding: 0.4rem 0.8rem; }
+  </style>
+</head>
+<body>
+  <h1>Gestionar Estados de Reserva</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="states-tbody"></tbody>
+  </table>
+
+  <form id="state-form">
+    <input type="text" id="state-name" placeholder="Nuevo estado" required />
+    <button type="submit" id="save-btn">Agregar</button>
+    <button type="button" id="cancel-btn" style="display:none;">Cancelar</button>
+  </form>
+
+  <script src="js/estadoReserva.js"></script>
+</body>
+</html>
