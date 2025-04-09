@@ -51,6 +51,13 @@ const menuItems = [
     description: "Ver estado de reservaciones",
     path: '/estadoreserva',
     color: 'bg-cyan-100 text-cyan-600'
+  },
+  {
+    title: "Usuario",
+    icon: Users,
+    description: "Visualiza a todos los usuarios",
+    path: '/usuarios',
+    color: 'bg-cyan-100 text-cyan-600'
   }
 ];
 

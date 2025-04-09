@@ -9,6 +9,7 @@ import RoomTypes from './components/TipoHabitacion';
 import RoomStatus from './components/EstadoHabitacion';
 import ReservationDetails from './components/DetalleReservacion';
 import EstadoReserva from './components/EstadoReserva';
+import Usuarios from './components/Usuario';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,6 +33,7 @@ function App() {
         <Route path="/estadohabitacion" element={<RoomStatus />} />
         <Route path="/detallereserva" element={<ReservationDetails />} />
         <Route path= "/estadoreserva" element={<EstadoReserva />} />
+        <Route path="/usuarios" element={<Usuarios />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
