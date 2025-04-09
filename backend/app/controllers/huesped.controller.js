@@ -1,4 +1,4 @@
-const db = require("../configs"); // Asegúrate que index.js exporte los modelos
+const db = require("../configs/db"); // Asegúrate que index.js exporte los modelos
 const Huesped = db.huesped;
 
 // Crear un nuevo huésped
