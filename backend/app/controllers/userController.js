@@ -33,33 +33,32 @@ async function signUp(req, res) {
 
 async function signIn(req, res) {
     const userId = req.body['usuario'];
-    var condition = userId ? { userId: { [Op.eq]: `${userId}` } } : null;
-    User.findOne({ where: condition })
-        .then(data => {
-            if (!data) { res.status(404).send({ message: 'Usuario no encontrado' }) }
-            else {
-                const result = bcrypt.compareSync(req.body['password'], data['pass'], function (err, result) {
-                    if (err) console.error(err)
-                    return result
-                });
-                if (result) {
-                    res.status(200).send({
-                        message: 'Logged in',
-                        userId: data['userId'],
-                        token: service.createToken(data['userId']),
-                    });
-                } else {
-                    res.status(500).send({
-                        message: 'Sucedio un error inesperado',
-                    });
-                }
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Sucedio un error al obtener los registros del usuario"
-            })
-        })
+    var condition = userId ? { usuario: { [Op.eq]: `${userId}` } } : null;
+    try {
+        const data = await User.findOne({ where: condition });
+        
+        if (!data) { 
+            return res.status(404).send({ message: 'Usuario no encontrado' });
+        }
+        
+        // Usa compareSync correctamente (sin callback)
+        const result = req.body['password'] === data['pass'];
+        if (result) {
+            return res.status(200).send({
+                message: 'Logged in',
+                userId: data['userId'],
+                token: service.createToken(data['userId']),
+            });
+        } else {
+            return res.status(401).send({
+                message: 'Contraseña incorrecta',
+            });
+        }
+    } catch (err) {
+        return res.status(500).send({
+            message: err.message || "Sucedió un error al obtener los registros del usuario"
+        });
+    }
 }
 
 module.exports = { signUp, signIn }

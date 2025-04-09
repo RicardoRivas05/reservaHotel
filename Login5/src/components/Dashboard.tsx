@@ -61,7 +61,13 @@ const menuItems = [
   }
 ];
 
-function Dashboard() {
+interface DashboardProps {
+  userId: string;
+  onLogout: () => void;
+}
+
+
+const Dashboard: React.FC<DashboardProps> = ({ userId, onLogout }) => {
   const navigate = useNavigate();
 
   return (
@@ -71,10 +77,10 @@ function Dashboard() {
           <div className="flex items-center space-x-3">
             <Hotel className="h-8 w-8 text-teal-600" />
             <h1 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-emerald-600 text-transparent bg-clip-text">
-              Sistema de Gestión Hotelera
+              Sistema de Gestión Hotelera, Bienvenido a la aplicación {userId}
             </h1>
           </div>
-          <button className="flex items-center space-x-2 px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+          <button onClick={onLogout} className="flex items-center space-x-2 px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors duration-200">
             <LogOut className="h-5 w-5" />
             <span>Salir</span>
           </button>

@@ -1,17 +1,54 @@
 import React, { useState } from 'react';
 import { Hotel } from 'lucide-react';
+import axios from 'axios'; // Asegúrate de tener axios instalado (npm install axios)
 
 interface LoginProps {
-  onLogin: () => void;
+  onLogin: (token?: string, userId?: string) => void;
 }
 
 function Login({ onLogin }: LoginProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onLogin();
+    
+    // Validación básica
+    if (!username || !password) {
+      setError('Por favor ingrese usuario y contraseña');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+    
+    try {
+      // Ajusta la URL según la configuración de tu API
+      const response = await axios.post('http://localhost:3000/api/users/login', {
+        usuario: username,
+        password: password
+      });
+      
+      // Guardar el token en localStorage para futuras peticiones
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userId', response.data.userId);
+      
+      // Notificar al componente padre
+      onLogin(response.data.token, response.data.userId);
+    } catch (err: any) {
+      if (err.response && err.response.status === 404) {
+        setError('Usuario no encontrado');
+      } else if (err.response && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError('Error al iniciar sesión. Inténtelo de nuevo.');
+      }
+      console.error('Error en login:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -26,6 +63,12 @@ function Login({ onLogin }: LoginProps) {
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-6">
+          {error && (
+            <div className="p-3 bg-red-100 text-red-700 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
+          
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Usuario
@@ -36,6 +79,7 @@ function Login({ onLogin }: LoginProps) {
               onChange={(e) => setUsername(e.target.value)}
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
               placeholder="Ingrese su usuario"
+              disabled={loading}
             />
           </div>
           
@@ -49,14 +93,16 @@ function Login({ onLogin }: LoginProps) {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
               placeholder="Ingrese su contraseña"
+              disabled={loading}
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-teal-500 to-emerald-600 text-white py-3 px-4 rounded-xl hover:from-teal-600 hover:to-emerald-700 transition duration-200 font-medium text-lg shadow-lg hover:shadow-xl"
+            className="w-full bg-gradient-to-r from-teal-500 to-emerald-600 text-white py-3 px-4 rounded-xl hover:from-teal-600 hover:to-emerald-700 transition duration-200 font-medium text-lg shadow-lg hover:shadow-xl disabled:opacity-70"
+            disabled={loading}
           >
-            Iniciar Sesión
+            {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
           </button>
         </form>
       </div>
