@@ -1,8 +1,16 @@
 const express = require('express');
 const App = express();
+const cors = require('cors');
 
 App.use(express.json());
 App.use(express.urlencoded({ extended: false }));
+
+App.use(cors());
+App.use(cors({
+    origin: '*', // Cambia '*' por el dominio del frontend si es necesario
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 const userRoutes = require('./routes/userRoutes');
 const tipoHabitacionRoutes = require('./routes/tipoHabitacionRotes');
