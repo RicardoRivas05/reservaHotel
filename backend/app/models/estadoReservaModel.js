@@ -1,28 +1,25 @@
-'use strict'
-
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    const attributes = {
-        idEstadoReserva: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        estado: {
-            type: DataTypes.STRING(60),
-            allowNull: false
-        },
-    };
+  const EstadoReserva = sequelize.define('estadoreserva', {
+    idEstadoReserva: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false
+    },
+    estado: {
+      type: DataTypes.STRING(60),
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        len: [3, 60]
+      }
+    }
+  }, {
+    tableName: 'estadoreserva',
+    timestamps: false
+  });
 
-    const options = {
-        defaultScope: {
-            attributes: { exclude: ['createdAt', 'updatedAt'] }
-        },
-        scopes: {},
-        tableName: 'estadoreserva',
-        timestamps: false
-    };
-
-    return sequelize.define('estadoreserva', attributes, options);
+  return EstadoReserva;
 };
