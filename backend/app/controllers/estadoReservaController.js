@@ -3,56 +3,92 @@ const EstadoReserva = db.estadoreserva;
 
 exports.findAll = async (req, res) => {
   try {
-    const data = await EstadoReserva.findAll();
-    res.json(data);
+    const estados = await EstadoReserva.findAll();
+    return res.status(200).json(estados);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({
+      message: 'Error interno al recuperar los estados de reserva.',
+      error: error.message
+    });
   }
 };
 
 exports.findOne = async (req, res) => {
+  const id = req.params.id;
   try {
-    const data = await EstadoReserva.findByPk(req.params.id);
-    if (data) res.json(data);
-    else res.status(404).json({ message: 'No encontrado' });
+    const estado = await EstadoReserva.findByPk(id);
+    if (!estado) {
+      return res.status(404).json({ message: `No se encontró el estado con ID ${id}` });
+    }
+    return res.status(200).json(estado);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({
+      message: 'Error interno al buscar el estado de reserva.',
+      error: error.message
+    });
   }
 };
 
 exports.create = async (req, res) => {
+  const { estado } = req.body;
+  if (!estado || estado.trim() === '') {
+    return res.status(400).json({ message: 'El campo "estado" es obligatorio.' });
+  }
   try {
-    const data = await EstadoReserva.create(req.body);
-    res.status(201).json(data);
+    const nuevoEstado = await EstadoReserva.create({ estado });
+    return res.status(201).json({
+      message: 'Estado de reserva creado correctamente.',
+      data: nuevoEstado
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({
+      message: 'Error interno al crear el estado de reserva.',
+      error: error.message
+    });
   }
 };
 
 exports.update = async (req, res) => {
+  const id = req.params.id;
+  const { estado } = req.body;
+  if (!estado || estado.trim() === '') {
+    return res.status(400).json({ message: 'El campo "estado" es obligatorio.' });
+  }
   try {
-    const [updated] = await EstadoReserva.update(req.body, {
-      where: { idEstadoReserva: req.params.id }
-    });
-    if (updated) {
-      const data = await EstadoReserva.findByPk(req.params.id);
-      res.json(data);
-    } else {
-      res.status(404).json({ message: 'No encontrado' });
+    const estadoActualizado = await EstadoReserva.update(
+      { estado },
+      { where: { idEstadoReserva: id } }
+    );
+    if (estadoActualizado[0] === 0) {
+      return res.status(404).json({ message: `No se encontró el estado con ID ${id}` });
     }
+    const estadoFinal = await EstadoReserva.findByPk(id);
+    return res.status(200).json({
+      message: 'Estado de reserva actualizado correctamente.',
+      data: estadoFinal
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({
+      message: 'Error interno al actualizar el estado de reserva.',
+      error: error.message
+    });
   }
 };
 
 exports.delete = async (req, res) => {
+  const id = req.params.id;
   try {
-    const deleted = await EstadoReserva.destroy({
-      where: { idEstadoReserva: req.params.id }
+    const eliminado = await EstadoReserva.destroy({ where: { idEstadoReserva: id } });
+    if (!eliminado) {
+      return res.status(404).json({ message: `No se encontró el estado con ID ${id}` });
+    }
+    return res.status(200).json({
+      message: 'Estado de reserva eliminado correctamente.'
     });
-    if (deleted) res.status(204).send();
-    else res.status(404).json({ message: 'No encontrado' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({
+      message: 'Error interno al eliminar el estado de reserva.',
+      error: error.message
+    });
   }
 };
