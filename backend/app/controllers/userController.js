@@ -36,7 +36,7 @@ async function signIn(req, res) {
     var condition = userId ? { usuario: { [Op.eq]: `${userId}` } } : null;
     try {
         const data = await User.findOne({ where: condition });
-        
+        console.log('Data', data);
         if (!data) { 
             return res.status(404).send({ message: 'Usuario no encontrado' });
         }
