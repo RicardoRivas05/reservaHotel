@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/api/habitacion"; //Personalizar segun sea el caso
+const API_URL = "http://localhost:3000/api/habitaciones"; //Personalizar segun sea el caso
 
 export const getHabitacion = () => axios.get(API_URL);
 export const createHabitacion = (data: any) => axios.post(API_URL, data);
