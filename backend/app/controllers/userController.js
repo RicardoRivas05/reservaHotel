@@ -11,14 +11,15 @@ async function signUp(req, res) {
 
     await bcrypt.genSalt(10)
         .then(async salts => {
-            await bcrypt.hash(req.body['password'], salts)
+            await bcrypt.hash(req.body['pass'], salts)
                 .then(hash => newPass = hash)
                 .catch(error => console.error(error))
         })
         .catch(error => console.error(error));
 
     User.create({
-        userId: req.body['usuario'],
+        userId: req.body['userId'],
+        usuario: req.body['usuario'],
         pass: newPass,
     })
         .then(data => {
@@ -32,8 +33,8 @@ async function signUp(req, res) {
 }
 
 async function signIn(req, res) {
-    const userId = req.body['usuario'];
-    var condition = userId ? { usuario: { [Op.eq]: `${userId}` } } : null;
+    const usuario = req.body['usuario'];
+    var condition = usuario ? { usuario: { [Op.eq]: `${usuario}` } } : null;
     try {
         const data = await User.findOne({ where: condition });
         if (!data) { 
