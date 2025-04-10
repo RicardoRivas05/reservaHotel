@@ -19,7 +19,7 @@ const habitacionRoutes = require('./routes/habitacionRoutes');
 const huespedRoutes= require('./routes/huespedRoutes');
 const estadoreservaRoutes= require('./routes/estadoReservaRoutes');
 const reservaRoutes = require('./routes/reservaRoutes');
-const detalleReservaRoutes = require('./routes/detalleReservaRoutes');
+const detalleReservaRoutes = require('./routes/detallereservaRoutes');
 
 App.use('/api/users', userRoutes);
 App.use('/api/tipoHabitacion', tipoHabitacionRoutes);
