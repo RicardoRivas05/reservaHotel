@@ -26,17 +26,19 @@ function Login({ onLogin }: LoginProps) {
     
     try {
       // Ajusta la URL según la configuración de tu API
-      const response = await axios.post('http://localhost:3000/api/users/login', {
+      const response = await axios.post('http://localhost:3001/api/users/login', {
         usuario: username,
         password: password
       });
-      
+      console.log(response)
       // Guardar el token en localStorage para futuras peticiones
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userId', response.data.userId);
       
       // Notificar al componente padre
       onLogin(response.data.token, response.data.userId);
+
+
     } catch (err: any) {
       if (err.response && err.response.status === 404) {
         setError('Usuario no encontrado');
@@ -49,6 +51,7 @@ function Login({ onLogin }: LoginProps) {
     } finally {
       setLoading(false);
     }
+
   };
 
   return (

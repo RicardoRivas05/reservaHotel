@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         pass: {
-            type: DataTypes.STRING(45)
+            type: DataTypes.STRING(255)
         },
     };
     const options = {
@@ -24,5 +24,5 @@ module.exports = (sequelize) => {
         tableName: 'usuario',
         timestamps: false
     };
-    return sequelize.define('users', attributes, options);
+    return sequelize.define('usuario', attributes, options);
 };
